@@ -12,7 +12,8 @@ export default function App({ Component, pageProps }: AppProps) {
     <div id="outer-container">
       <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'} customBurgerIcon=<SettingsIcon/>>
         <Link href="/" className="menu-item">Settings</Link>
-        <Link href="/salads" className="menu-item">Salads</Link>
+        <Link href="/" className="menu-item">User Info</Link>
+        <Link href="/" className="menu-item">Server Logs</Link>
       </Menu>
       <div id="page-wrap">
         <div className="appPane">

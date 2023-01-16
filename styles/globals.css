@@ -107,22 +107,26 @@ a {
 }
 
 .appPane {
+  height: 100vh;
+  width: 100vw;
 }
 
 .appContent {
-  margin-left: 250px;
+  position: relative;
+  top: 0;
+  left: 250px;
   height: 100vh;
-  width: 100vh;
+  width: calc(100% - 250px);
 }
 
 
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: fixed;
-  width: 36px;
-  height: 30px;
-  right: 36px;
-  top: 36px;
+  width: 24px;
+  height: 24px;
+  right: 7px;
+  top: 7px;
 }
 
 /* Color/shape of burger icon bars */

@@ -1,6 +1,7 @@
 import styles from '../components/minimizingWindow.module.css'
 import Minimize from '@mui/icons-material/Minimize';
 import OpenInFull from '@mui/icons-material/OpenInFull';
+import Close from '@mui/icons-material/Close';
 import Link from 'next/link';
 
 import React, { useEffect, useRef, useState } from "react";
@@ -39,17 +40,32 @@ const MinimizingWindow: React.FC<IProps> = ({
   }, [isOpen]);
   return (
     <>
-      <div className={styles.collapsibleCard}>
+      <div className={`${styles.collapsibleCard} ${isOpen? styles.opened : styles.closed}`}>
         <div>
-          <div className={styles.collapsibleHeader}>
+          <div className={`${styles.collapsibleHeader} ${isOpen? styles.opened : styles.closed}`}>
             <div className={styles.titleText}>{title}</div>
-            <button
-              type="button"
-              className={styles.collapsibleIconButton}
-              onClick={handleFilterOpening}
-            >
-              {isOpen? <Minimize />: <OpenInFull />}
-            </button>
+            <table>
+              <tr>
+                <td>
+                  <button
+                    type="button"
+                    className={styles.collapsibleIconButton}
+                    onClick={handleFilterOpening}
+                  >
+                    {isOpen? <Minimize />: <OpenInFull />}
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className={styles.collapsibleIconButton}
+                    onClick={handleFilterOpening}
+                  >
+                    <Close />
+                  </button>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
         <div className={styles.collapsibleContent} style={{ height }}>
