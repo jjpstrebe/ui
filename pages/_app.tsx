@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <div id="page-wrap">
         <div className="appPane">
           <Sidenav />
-          <div>
+          <div className="appContent">
             <Component {...pageProps} />
           </div>
         </div>

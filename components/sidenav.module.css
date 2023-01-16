@@ -1,5 +1,9 @@
 .sidenav {
-  width: calc(100% - 50px);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
   transition: width 0.3s ease-in-out;
   height: 100vh;
   background-color: rgb(10,25,41);
