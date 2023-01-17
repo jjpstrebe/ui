@@ -1,13 +1,22 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import MinimizingWindow from '../components/minimizingWindow';
 import ReactiveButton from 'reactive-button';
-import { Tabbordion, TabPanel, TabLabel, TabContent } from 'react-tabbordion'
-import React, { useState } from "react";
+import MainTabs from '../components/mainTabs';
 
-const inter = Inter({ subsets: ['latin'] })
+
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+//import TabPanel from '@mui/lab/TabPanel';
+
+import Container from '@mui/material/Container';
+
+import React, { useState, SyntheticEvent, ReactNode } from "react";
+
 
 const blockElements = {
     content: 'tabs-content',
@@ -49,26 +58,15 @@ export default function Home() {
           onClick={onClickHandler}
         />
 
+        <Container maxWidth="sm">
+          <Box sx={{ my: 4 }}>
+            <Typography variant="h4" component="h1" gutterBottom>
+              Next.js example
+            </Typography>
+          </Box>
+        </Container>
 
-
-        <Tabbordion blockElements={blockElements} className="tabs" name="tabs">
-            <TabPanel>
-                <TabLabel>My title</TabLabel>
-                <TabContent>
-                    <h2>Sample</h2>
-                    <p>Content</p>
-                </TabContent>
-            </TabPanel>
-            <TabPanel>
-                <TabLabel>Another title</TabLabel>
-                <TabContent>
-                    <h2>Another Sample</h2>
-                    <p>Some other kind of content</p>
-                </TabContent>
-            </TabPanel>
-        </Tabbordion>
-
-
+        <MainTabs />
 
       </main>
     </>
