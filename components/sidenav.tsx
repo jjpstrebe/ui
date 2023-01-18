@@ -18,7 +18,7 @@ export default function Sidenav() {
       </button>
       {navData.map(item =>{
         return (
-          <Link href={item.link} className={styles.sideitem}>
+          <Link key={item.id} href={item.link} className={styles.sideitem}>
             {item.icon}
             <span className={styles.linkText}>{item.text}</span>
           </Link>

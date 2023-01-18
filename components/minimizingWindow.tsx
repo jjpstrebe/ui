@@ -8,12 +8,13 @@ import React, { useEffect, useRef, useState } from "react";
 interface IProps {
   open?: boolean;
   title: string | React.ReactNode;
+  children: React.ReactNode;
 }
 
 const MinimizingWindow: React.FC<IProps> = ({
   open,
-  children,
-  title
+  title,
+  children
 }) => {
   const [isOpen, setIsOpen] = useState(open);
   const [height, setHeight] = useState<number | undefined>(
