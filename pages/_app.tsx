@@ -1,5 +1,12 @@
-import type { AppProps } from 'next/app'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import * as React from 'react';
+import Head from 'next/head';
+import { AppProps } from 'next/app';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import theme from '../config/theme';
+import createEmotionCache from '../config/createEmotionCache';
+import Header from "../components/Header";
 import '../styles/globals.css'
 import Sidenav from '../components/sidenav';
 import Link from 'next/link';
@@ -8,31 +15,23 @@ import Link from 'next/link';
 import { scaleRotate as Menu } from 'react-burger-menu';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-`
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
-interface ThemeInterface {
-  colors: {
-    primary: string
-  }
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
 }
 
-const theme: ThemeInterface = {
-  colors: {
-    primary: '#0070f3',
-  },
-}
-
-export default function App({ Component, pageProps }: AppProps) {
+export default function MyApp(props: MyAppProps) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
-    <>
-      <GlobalStyle />
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
       <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
         <div id="outer-container">
           <Menu right pageWrapId={'page-wrap'} outerContainerId={'outer-container'} customBurgerIcon=<SettingsIcon/>>
             <Link href="/" className="menu-item">Settings</Link>
@@ -49,6 +48,6 @@ export default function App({ Component, pageProps }: AppProps) {
           </div>
         </div>
       </ThemeProvider>
-    </>
-  )
+    </CacheProvider>
+  );
 }

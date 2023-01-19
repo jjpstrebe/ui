@@ -16,6 +16,7 @@ import Container from '@mui/material/Container';
 import AlertDialogSlide from '../components/alertDialogSlide';
 import BasicSelect from '../components/basicSelect';
 import React, { useState, SyntheticEvent, ReactNode } from "react";
+import EnhancedTable from '../components/enhancedTable';
 
 
 export default function MainTabs() {
@@ -38,11 +39,12 @@ export default function MainTabs() {
           </TabList>
         </Box>
         <TabPanel value="1">
-            <Badge badgeContent={4} color="primary">
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-            </Badge>
+          <EnhancedTable />
         </TabPanel>
         <TabPanel value="2">
+          <Badge badgeContent={4} color="primary">
+            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+          </Badge>
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -84,8 +86,8 @@ export default function MainTabs() {
           </Accordion>
         </TabPanel>
         <TabPanel value="3">
-          <AlertDialogSlide />
           <BasicSelect />
+          <AlertDialogSlide />
         </TabPanel>
       </TabContext>
     </Box>
