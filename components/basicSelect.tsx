@@ -5,7 +5,19 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-export default function BasicSelect() {
+
+type Props = {
+  title: string;
+  options: Options[];
+};
+
+type Options = {
+  value: string;
+  label: string;
+};
+
+
+export default function BasicSelect({ title, options }: Props) {
   const [age, setAge] = React.useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -20,12 +32,10 @@ export default function BasicSelect() {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
-          label="Age"
+          label={title}
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {options.map(d => (<MenuItem key={d.id} value={d.value}>{d.label}</MenuItem>))}
         </Select>
       </FormControl>
     </Box>

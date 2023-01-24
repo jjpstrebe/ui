@@ -86,7 +86,7 @@ export default function MainTabs() {
           </Accordion>
         </TabPanel>
         <TabPanel value="3">
-          <BasicSelect />
+          <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
           <AlertDialogSlide />
         </TabPanel>
       </TabContext>
