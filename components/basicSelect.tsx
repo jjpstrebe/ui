@@ -17,21 +17,21 @@ type Options = {
 };
 
 
-export default function BasicSelect({ title, options }: Props) {
-  const [age, setAge] = React.useState('');
+export default function BasicSelect({ title, value, options }: Props) {
+  const [selectValue, setSelectValue] = React.useState(value == undefined ? '' : value as string);
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setSelectValue(event.target.value as string);
   };
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">{title}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={selectValue}
           label={title}
           onChange={handleChange}
         >
