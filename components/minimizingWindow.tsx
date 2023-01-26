@@ -3,6 +3,8 @@ import Minimize from '@mui/icons-material/Minimize';
 import OpenInFull from '@mui/icons-material/OpenInFull';
 import Close from '@mui/icons-material/Close';
 import Link from 'next/link';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
 
 import React, { useEffect, useRef, useState } from "react";
 interface IProps {
@@ -45,28 +47,14 @@ const MinimizingWindow: React.FC<IProps> = ({
         <div>
           <div className={`${styles.collapsibleHeader} ${isOpen? styles.opened : styles.closed}`}>
             <div className={styles.titleText}>{title}</div>
-            <table>
-              <tr>
-                <td>
-                  <button
-                    type="button"
-                    className={styles.collapsibleIconButton}
-                    onClick={handleFilterOpening}
-                  >
-                    {isOpen? <Minimize />: <OpenInFull />}
-                  </button>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className={styles.collapsibleIconButton}
-                    onClick={handleFilterOpening}
-                  >
-                    <Close />
-                  </button>
-                </td>
-              </tr>
-            </table>
+            <Stack spacing={0} direction="row">
+              <IconButton aria-label="delete" onClick={handleFilterOpening}>
+                {isOpen? <Minimize />: <OpenInFull />}
+              </IconButton>
+              <IconButton aria-label="delete" onClick={handleFilterOpening}>
+                <Close />
+              </IconButton>
+            </Stack>
           </div>
         </div>
         <div className={styles.collapsibleContent} style={{ height }}>

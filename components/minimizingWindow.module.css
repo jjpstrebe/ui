@@ -1,7 +1,6 @@
 .collapsibleContent {
   overflow: hidden;
   transition: height 0.2s ease-in-out;
-  border-bottom: 1px solid #dee2e6 !important;
 }
 .titleText {
   display: block;
@@ -16,7 +15,6 @@
   display: flex;
   justify-content: space-between;
   padding: 2px 20px 2px 20px;
-  border-bottom: 1px solid #dee2e6 !important;
   background-color: #29394a;
 }
 .collapsibleHeader.opened {
@@ -29,16 +27,6 @@
 }
 .collapsibleContentPadding {
   padding: 20px 20px 20px 20px;
-}
-.collapsibleIconButton {
-  cursor: pointer;
-  background-color: Transparent;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  margin-left: 10px;
 }
 
 .collapsibleCard {

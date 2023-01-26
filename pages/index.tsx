@@ -1,14 +1,10 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-//import MinimizingWindow from '../components/minimizingWindow';
+import MinimizingWindow from '../components/minimizingWindow';
+import ModifyPanel from '../components/modifyPanel';
 import MainTabs from '../components/mainTabs';
 import React, { useState } from "react";
 
-//        <MinimizingWindow title="Window Title">
-//          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-//          squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-//          sapiente ea proident.
-//        </MinimizingWindow>
 export default function Home() {
   return (
     <>
@@ -19,6 +15,9 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <MainTabs />
+        <MinimizingWindow title="Window Title">
+          <ModifyPanel />
+        </MinimizingWindow>
       </main>
     </>
   )
