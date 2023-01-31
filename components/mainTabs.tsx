@@ -23,14 +23,31 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import useSWR from 'swr'
+import useSWRImmutable from 'swr/immutable'
+
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+async function sendRequest(url, { arg }) {
+  let result = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(arg)
+  })
+  console.log(result);
+  return result;
+}
+//sendRequest('/api/directories', [{test1: 1, test2: '2', abc: "abc"}, {test1: 100, test2: '200', abc: "something else"}])
 
 
 export default function MainTabs() {
   const [value, setValue] = useState('1');
+  const [queryData, setQueryData] = useState([{test1: 1, test2: '2', abc: "abc"}, {test1: 100, test2: '200', abc: "something else"}]);
 
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  const { data, error, isLoading } = useSWRImmutable(queryData, () => {sendRequest('/api/directories', queryData)})
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -95,7 +112,7 @@ export default function MainTabs() {
               <Typography>Results</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <EnhancedTable />
+              {(error || isLoading) ? <div>loading...</div> : <EnhancedTable rows={data} />}
               <Button variant="contained">Add Selected</Button>
             </AccordionDetails>
           </Accordion>
@@ -104,7 +121,6 @@ export default function MainTabs() {
           <Badge badgeContent={4} color="primary">
             <TextField id="outlined-basic" label="Outlined" variant="outlined" />
           </Badge>
-          <EnhancedTable />
           <Stack spacing={2} direction="row">
             <Button variant="contained">Button1</Button>
             <Button variant="contained">Button2</Button>
@@ -112,7 +128,6 @@ export default function MainTabs() {
         </TabPanel>
         <TabPanel value="3">
           <AlertDialogSlide />
-          <EnhancedTable />
         </TabPanel>
       </TabContext>
     </Box>
