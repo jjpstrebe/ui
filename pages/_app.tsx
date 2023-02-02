@@ -29,7 +29,7 @@ export default function MyApp(props: MyAppProps) {
   const handleCloseMenu = () => {
     setMenuOpen(false);
   };
-  const handleStateChange = (state) => {
+  const handleStateChange = (state: any) => {
     setMenuOpen(state.isOpen);
   };
   return (

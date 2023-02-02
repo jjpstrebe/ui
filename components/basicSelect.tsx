@@ -7,12 +7,13 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 
 type Props = {
-  title: string;
+  title?: string;
+  value?: string;
   options: Options[];
 };
 
 type Options = {
-  value: string;
+  value: string | number;
   label: string;
 };
 
@@ -35,7 +36,7 @@ export default function BasicSelect({ title, value, options }: Props) {
           label={title}
           onChange={handleChange}
         >
-          {options.map(d => (<MenuItem key={d.id} value={d.value}>{d.label}</MenuItem>))}
+          {options.map((d, i) => (<MenuItem key={i} value={d.value}>{d.label}</MenuItem>))}
         </Select>
       </FormControl>
     </Box>

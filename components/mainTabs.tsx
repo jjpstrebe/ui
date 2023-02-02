@@ -17,7 +17,6 @@ import Container from '@mui/material/Container';
 import AlertDialogSlide from '../components/alertDialogSlide';
 import BasicSelect from '../components/basicSelect';
 import React, { useState, SyntheticEvent, ReactNode } from "react";
-import EnhancedTable from '../components/enhancedTable';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -25,113 +24,233 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
+import { Data } from '../util/table';
+import DataTable, { createTheme } from 'react-data-table-component';
 
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
-async function sendRequest(url, { arg }) {
-  let result = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(arg)
-  })
-  console.log(result);
-  return result;
-}
+//const fetcher = (...args) => fetch(...args).then(res => res.json())
+//async function sendRequest(url, { arg }) {
+//  let result = await fetch(url, {
+//    method: 'POST',
+//    body: JSON.stringify(arg)
+//  })
+//  console.log(result);
+//  return result;
+//}
 //sendRequest('/api/directories', [{test1: 1, test2: '2', abc: "abc"}, {test1: 100, test2: '200', abc: "something else"}])
 
 
-export default function MainTabs() {
-  const [value, setValue] = useState('1');
-  const [queryData, setQueryData] = useState([{test1: 1, test2: '2', abc: "abc"}, {test1: 100, test2: '200', abc: "something else"}]);
+createTheme('dark', {
+  background: {
+    default: 'transparent',
+  },
+  striped: {
+    default: '#64554a',
+  },
+  action: {
+    button: 'rgba(0,0,0,.54)',
+    hover: 'rgba(100,150,200,0.8)',
+    disabled: 'rgba(0,0,0,.12)',
+  },
+});
 
-  const handleChange = (event: SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
 
-  const { data, error, isLoading } = useSWRImmutable(queryData, () => {sendRequest('/api/directories', queryData)})
+const columns = [
+  [
+    {
+      name: 'Dessert (100g serving)',
+      selector: (row: any) => row.name,
+      sortable: true,
+    },
+    {
+      name: 'Calories',
+      selector: (row: any) => row.calories,
+      sortable: true,
+    },
+    {
+      name: 'Fat (g)',
+      selector: (row: any) => row.fat,
+      sortable: true,
+    },
+    {
+      name: 'Carbs (g)',
+      selector: (row: any) => row.carbs,
+      sortable: true,
+    },
+    {
+      name: 'Protein (g)',
+      selector: (row: any) => row.protein,
+      sortable: true,
+    },
+  ], [
+    {
+      name: 'Dessert (100g serving)',
+      selector: (row: any) => row.name,
+      sortable: true,
+    },
+    {
+      name: 'Calories',
+      selector: (row: any) => row.calories,
+      sortable: true,
+    },
+    {
+      name: 'Fake 1',
+      selector: (row: any) => row.fake1,
+      sortable: true,
+    },
+    {
+      name: 'Fake 2',
+      selector: (row: any) => row.fake2,
+      sortable: true,
+    },
+    {
+      name: 'Fake 3',
+      selector: (row: any) => row.fake3,
+      sortable: true,
+    },
+  ]
+];
 
-  return (
-    <Box sx={{ width: '100%', typography: 'body1' }}>
-      <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tooltip title="Click me!">
-              <Tab label="Item One" value="1" />
-            </Tooltip>
-            <Tab label="Item Two" value="2" />
-            <Tab label="Item Three" value="3" />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography>Filter</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>Search</Typography>
-              <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
-              <Typography>for</Typography>
-              <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
-              <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
-              <Autocomplete
-                disablePortal
-                id="combo-box1"
-                options={top100Films}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Movie" />}
-              />
-              <BasicSelect value="and" options={[{value: "and", label: "and"}, {value: "or", label: "or"}]}/>
-              <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
-              <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
-              <Autocomplete
-                disablePortal
-                id="combo-box2"
-                options={top100Films}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Movie" />}
-              />
-              <FormGroup>
-                <FormControlLabel control={<Checkbox />} label="Lorem ipsum dolor sit amet, consectetur adipiscing elit" />
-                <FormControlLabel control={<Checkbox />} label="Lorem ipsum dolor sit amet, consectetur adipiscing elit" />
-              </FormGroup>
-              <Stack spacing={2} direction="row">
-                <Button variant="contained">Reset</Button>
-                <Button variant="contained">Filter</Button>
-              </Stack>
-            </AccordionDetails>
-          </Accordion>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2a-content"
-              id="panel2a-header"
-            >
-              <Typography>Results</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              {(error || isLoading) ? <div>loading...</div> : <EnhancedTable rows={data} />}
-              <Button variant="contained">Add Selected</Button>
-            </AccordionDetails>
-          </Accordion>
-        </TabPanel>
-        <TabPanel value="2">
-          <Badge badgeContent={4} color="primary">
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-          </Badge>
-          <Stack spacing={2} direction="row">
-            <Button variant="contained">Button1</Button>
-            <Button variant="contained">Button2</Button>
-          </Stack>
-        </TabPanel>
-        <TabPanel value="3">
-          <AlertDialogSlide />
-        </TabPanel>
-      </TabContext>
-    </Box>
-  );
+
+interface IProps {
+}
+
+interface IState {
+  value: string,
+  queryData: any,
+  data: Data[][],
+  dataIndex: number,
+  error: boolean,
+  isLoading: boolean
+}
+export default class MainTabs extends React.Component<IProps, IState> {
+
+  constructor(props: IProps) {
+    super(props);
+    this.state = {
+      value: '1',
+      queryData: [{test1: 1, test2: '2', abc: "abc"}, {test1: 100, test2: '200', abc: "something else"}],
+      data: [[]],
+      dataIndex: 0,
+      error: false,
+      isLoading: true
+    };
+  }
+
+  componentDidMount() {
+    this.getTableData();
+  }
+  handleChange = (event: SyntheticEvent, newValue: string) => {
+    this.setState({value: newValue})
+  }
+
+  getTableData = () => {
+    this.setState({error: false});
+    this.setState({isLoading: true});
+    this.setState({dataIndex: this.state.dataIndex == 0 ? 1 : 0});
+    fetch('/api/directories', {
+      method: 'POST',
+      body: JSON.stringify(this.state.queryData)
+    }).then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({data: result});
+          this.setState({error: false});
+          this.setState({isLoading: false});
+        },
+        (error) => {
+          this.setState({error: true});
+          this.setState({isLoading: false});
+        }
+      );
+  }
+
+  render() {
+    return (
+      <Box sx={{ width: '100%', typography: 'body1' }}>
+        <TabContext value={this.state.value}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={this.handleChange} aria-label="lab API tabs example">
+              <Tooltip title="Click me!">
+                <Tab label="Item One" value="1" />
+              </Tooltip>
+              <Tab label="Item Two" value="2" />
+              <Tab label="Item Three" value="3" />
+            </TabList>
+          </Box>
+          <TabPanel value="1">
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography>Filter</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>Search</Typography>
+                <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
+                <Typography>for</Typography>
+                <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
+                <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box1"
+                  options={top100Films}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Movie" />}
+                />
+                <BasicSelect value="and" options={[{value: "and", label: "and"}, {value: "or", label: "or"}]}/>
+                <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
+                <BasicSelect title="Age" options={[{value: 10, label: "Ten"}, {value: 20, label: "Twenty"}, {value: 30, label: "Thirty"}]}/>
+                <Autocomplete
+                  disablePortal
+                  id="combo-box2"
+                  options={top100Films}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label="Movie" />}
+                />
+                <FormGroup>
+                  <FormControlLabel control={<Checkbox />} label="Lorem ipsum dolor sit amet, consectetur adipiscing elit" />
+                  <FormControlLabel control={<Checkbox />} label="Lorem ipsum dolor sit amet, consectetur adipiscing elit" />
+                </FormGroup>
+                <Stack spacing={2} direction="row">
+                  <Button variant="contained">Reset</Button>
+                  <Button variant="contained">Filter</Button>
+                </Stack>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <Typography>Results</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                {(this.state.error || this.state.isLoading) ? <DataTable columns={columns[0]} data={[]} progressPending theme="dark" /> : <DataTable columns={columns[this.state.dataIndex]} data={this.state.data[this.state.dataIndex]} highlightOnHover pagination pointerOnHover responsive selectableRows striped theme="dark" />}
+                <Button variant="contained" onClick={this.getTableData}>Add Selected</Button>
+              </AccordionDetails>
+            </Accordion>
+          </TabPanel>
+          <TabPanel value="2">
+            <Badge badgeContent={4} color="primary">
+              <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+            </Badge>
+            <Stack spacing={2} direction="row">
+              <Button variant="contained">Button1</Button>
+              <Button variant="contained">Button2</Button>
+            </Stack>
+          </TabPanel>
+          <TabPanel value="3">
+            <AlertDialogSlide />
+          </TabPanel>
+        </TabContext>
+      </Box>
+    );
+  }
+
 }
 
 

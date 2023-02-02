@@ -17,6 +17,7 @@
     "next": "latest",
     "react": "latest",
     "react-burger-menu": "latest",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "latest",
     "swr": "^2.0.3"
   },
