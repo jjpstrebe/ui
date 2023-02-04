@@ -17,9 +17,9 @@
     "next": "latest",
     "react": "latest",
     "react-burger-menu": "latest",
-    "react-data-table-component": "^7.5.3",
+    "react-data-table-component": "latest",
     "react-dom": "latest",
-    "swr": "^2.0.3"
+    "swr": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
