@@ -9,6 +9,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import StatusLight from '../components/statusLight'
 
 
 export default function Sidenav() {
@@ -21,9 +22,13 @@ export default function Sidenav() {
       <button className={styles.menuBtn} onClick={toggleOpen}>
         {open? <KeyboardDoubleArrowLeftIcon />: <KeyboardDoubleArrowRightIcon />}
       </button>
-      <Stack spacing={2} direction="row">
+      <Stack spacing={1} direction="row">
         <Typography>Title</Typography>
-        <Typography>element</Typography>
+        <StatusLight color="#ff0000" label="S4" />
+        <StatusLight color="#ff0510" label="S8" />
+        <StatusLight color="#ff0000" label="S9" />
+        <StatusLight color="#00ff00" label="S1" />
+        <StatusLight color="#00ff00" label="S5" />
       </Stack>
       <Stack spacing={2} direction="row">
         <Typography>Title</Typography>
