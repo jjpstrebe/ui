@@ -22,14 +22,30 @@ export default function Sidenav() {
       <button className={styles.menuBtn} onClick={toggleOpen}>
         {open? <KeyboardDoubleArrowLeftIcon />: <KeyboardDoubleArrowRightIcon />}
       </button>
-      <Stack spacing={1} direction="row">
-        <Typography>Title</Typography>
-        <StatusLight color="#ff0000" label="S4" />
-        <StatusLight color="#ff0510" label="S8" />
-        <StatusLight color="#ff0000" label="S9" />
-        <StatusLight color="#00ff00" label="S1" />
-        <StatusLight color="#00ff00" label="S5" />
-      </Stack>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Typography>Title</Typography>
+            </td>
+            <td>
+              <StatusLight color="#ff4141" font="#000000" label="S4" />
+            </td>
+            <td>
+              <StatusLight color="#ff4141" font="#000000" label="S8" />
+            </td>
+            <td>
+              <StatusLight color="#ff4141" font="#000000" label="S9" />
+            </td>
+            <td>
+              <StatusLight color="#41ff41" font="#000000" label="S1" />
+            </td>
+            <td>
+              <StatusLight color="#41ff41" font="#000000" label="S5" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <Stack spacing={2} direction="row">
         <Typography>Title</Typography>
         <Typography>element</Typography>

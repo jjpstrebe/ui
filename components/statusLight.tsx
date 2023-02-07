@@ -10,10 +10,12 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from '@mui/material/Box';
+import styled from "styled-components";
 
 
 interface IProps {
   color: string,
+  font: string,
   label: string
 }
 
@@ -26,10 +28,22 @@ export default class StatusLight extends React.Component<IProps, IState> {
   }
 
   render() {
+    const LightBox = styled.div`
+      margin-left: 2px;
+      width: 30px;
+      height: 36px;
+      border-radius: 3px;
+      font-size: 12px;
+      color: ${this.props.font};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: ${this.props.color};
+      box-shadow: 0px 0 15px ${this.props.color};`;
     return (
-      <Box sx={{ padding: 0.4, width: '25', height: '25', background: this.props.color }}>
+      <LightBox>
         {this.props.label}
-      </Box>
+      </LightBox>
     );
   }
 
