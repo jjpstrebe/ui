@@ -26,6 +26,7 @@ import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
 import { Data } from '../util/table';
 import DataTable, { createTheme } from 'react-data-table-component';
+import UnlockableButton from '../components/unlockableButton';
 
 
 //const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -238,9 +239,12 @@ export default class MainTabs extends React.Component<IProps, IState> {
             <Badge badgeContent={4} color="primary">
               <TextField id="outlined-basic" label="Outlined" variant="outlined" />
             </Badge>
-            <Stack spacing={2} direction="row">
-              <Button variant="contained">Button1</Button>
-              <Button variant="contained">Button2</Button>
+            <Stack spacing={2} direction="row" alignItems='flex-start' justifyContent='space-between' sx={{ marginRight: 3 }}>
+              <Stack spacing={2} direction="row">
+                <Button variant="contained">Button1</Button>
+                <Button variant="contained">Button2</Button>
+              </Stack>
+              <UnlockableButton />
             </Stack>
           </TabPanel>
           <TabPanel value="3">
