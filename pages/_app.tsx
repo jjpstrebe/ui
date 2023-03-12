@@ -14,6 +14,10 @@ import Link from 'next/link';
 //import { scaleDown as Menu } from 'react-burger-menu';
 import { scaleRotate as Menu } from 'react-burger-menu';
 import SettingsIcon from '@mui/icons-material/Settings';
+import useUser from "../util/useUser";
+import { useRouter } from "next/router";
+import fetchJson from "../util/fetchJson";
+
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -23,6 +27,9 @@ interface MyAppProps extends AppProps {
 }
 
 export default function MyApp(props: MyAppProps) {
+  const { user, mutateUser } = useUser();
+  const router = useRouter();
+
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const [currentTheme, setCurrentTheme] = useState(themeDark);
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -49,10 +56,24 @@ export default function MyApp(props: MyAppProps) {
             isOpen={isMenuOpen}
             onStateChange={handleStateChange}
           >
-            <Link href="/settings" className="menu-item" onClick={handleCloseMenu}>Settings</Link>
             <Link href="/" className="menu-item" onClick={handleCloseMenu}>Home</Link>
-            <Link href="/" className="menu-item" onClick={handleCloseMenu}>User Info</Link>
+            <Link href="/settings" className="menu-item" onClick={handleCloseMenu}>Settings</Link>
             <Link href="/" className="menu-item" onClick={handleCloseMenu}>Server Logs</Link>
+            <Link
+              href="/api/logout"
+              className="menu-item"
+              onClick={async (e) => {
+                e.preventDefault();
+                mutateUser(
+                  await fetchJson("/api/logout", { method: "POST" }),
+                  false,
+                );
+                router.push("/login");
+                handleCloseMenu();
+              }}
+            >
+              Logout
+            </Link>
           </Menu>
           <div id="page-wrap">
             <div className="appPane">

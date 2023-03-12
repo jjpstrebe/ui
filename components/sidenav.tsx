@@ -9,7 +9,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import StatusLight from '../components/statusLight'
+//import StatusLight from '../components/statusLight'
 
 
 export default function Sidenav() {
@@ -29,19 +29,14 @@ export default function Sidenav() {
               <Typography>Title</Typography>
             </td>
             <td>
-              <StatusLight color="#ff4141" font="#000000" label="S4" />
             </td>
             <td>
-              <StatusLight color="#ff4141" font="#000000" label="S8" />
             </td>
             <td>
-              <StatusLight color="#ff4141" font="#000000" label="S9" />
             </td>
             <td>
-              <StatusLight color="#41ff41" font="#000000" label="S1" />
             </td>
             <td>
-              <StatusLight color="#41ff41" font="#000000" label="S5" />
             </td>
           </tr>
         </tbody>

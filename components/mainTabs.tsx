@@ -172,9 +172,7 @@ export default class MainTabs extends React.Component<IProps, IState> {
         <TabContext value={this.state.value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={this.handleChange} aria-label="lab API tabs example">
-              <Tooltip title="Click me!">
-                <Tab label="Item One" value="1" />
-              </Tooltip>
+              <Tab label="Item One" value="1" />
               <Tab label="Item Two" value="2" />
               <Tab label="Item Three" value="3" />
             </TabList>

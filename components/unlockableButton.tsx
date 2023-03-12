@@ -150,7 +150,7 @@ export default class UnlockableButton extends React.Component<IProps, IState> {
   componentDidMount() {
   }
 
-  handleEvent = (event: React.SyntheticEvent) => {
+  handleEvent = (event: any) => {
     if (event.type === "mousedown") {
       //this.unlockStartHandler(event.target.value);
     } else if (event.type === "mouseup") {

@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React, { useState } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
+import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
@@ -10,26 +10,55 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Link from '@mui/material/Link';
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+import useUser from "../util/useUser";
+import fetchJson, { FetchError } from "../util/fetchJson";
 
-
-const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  // here we just check if user is already logged in and redirect to profile
+  const { mutateUser } = useUser({
+    redirectTo: "/",
+    redirectIfFound: true,
+  });
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const body = {
+      username: data.get('username'),
       password: data.get('password'),
-    });
+    };
+    try {
+      mutateUser(
+        await fetchJson("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        }),
+        false,
+      );
+    } catch (error) {
+      if (error instanceof FetchError) {
+        setErrorMessage(error.data.message);
+      } else {
+        console.error("An unexpected error happened:", error);
+      }
+    }
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+    <>
+      <Head>
+        <title>New App (login)</title>
+        <meta name="description" content="Generic structure for an app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className={styles.main}>
         <Box
           sx={{
             marginTop: 8,
@@ -49,11 +78,9 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
+              id="username"
+              label="Username"
+              name="username"
             />
             <TextField
               margin="normal"
@@ -63,11 +90,6 @@ export default function SignIn() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"
@@ -77,21 +99,26 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            {errorMessage && <Typography>{errorMessage}</Typography>}
             <Grid container>
               <Grid item xs>
-                <Link href="#">
-                  Forgot password?
-                </Link>
+                <Tooltip title={<Typography>Have an admin sign in and change your password.</Typography>} arrow>
+                  <Link href="#">
+                    Forgot password?
+                  </Link>
+                </Tooltip>
               </Grid>
               <Grid item>
-                <Link href="/signup" >
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <Tooltip title={<Typography>Have an admin sign in and add an account for you.</Typography>} arrow>
+                  <Link href="#" >
+                    {"Don't have an account?"}
+                  </Link>
+                </Tooltip>
               </Grid>
             </Grid>
           </Box>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </main>
+    </>
   );
 }
