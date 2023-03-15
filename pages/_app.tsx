@@ -17,6 +17,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import useUser from "../util/useUser";
 import { useRouter } from "next/router";
 import fetchJson from "../util/fetchJson";
+import SnackbarController from '../components/snackbarController';
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -83,6 +84,7 @@ export default function MyApp(props: MyAppProps) {
               </div>
             </div>
           </div>
+          <SnackbarController />
         </div>
       </ThemeProvider>
     </CacheProvider>
