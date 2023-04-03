@@ -23,7 +23,7 @@
     "react-data-table-component": "latest",
     "react-dom": "latest",
     "redis": "latest",
-    "swr": "latest"
+    "swr": "latest",
     "tls": "latest"
   },
   "devDependencies": {
