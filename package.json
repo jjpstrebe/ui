@@ -15,12 +15,16 @@
     "@mui/lab": "latest",
     "@mui/material": "latest",
     "iron-session": "latest",
+    "net": "latest",
     "next": "latest",
+    "node-ini": "latest",
     "react": "latest",
     "react-burger-menu": "latest",
     "react-data-table-component": "latest",
     "react-dom": "latest",
+    "redis": "latest",
     "swr": "latest"
+    "tls": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
